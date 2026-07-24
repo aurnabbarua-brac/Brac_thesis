@@ -1,85 +1,237 @@
-# Explainable Deep Learning-Based Skin Condition Classification and Severity Estimation Using Transfer Learning and Grad-CAM Visualization
+# Explainable Transfer Learning-Based Skin Condition Classification and Severity Estimation Using Grad-CAM Visualization
 
 ## Project Overview
 
-This repository contains a skin condition classification pipeline built with TensorFlow and Keras. The project includes:
-- preprocessing of raw image data
-- training three CNN architectures: EfficientNetB0, MobileNetV2, and ResNet50
-- evaluating and comparing model performance on a held-out test set
-- generating explainability outputs and visualizations
+This repository contains the implementation of an explainable deep learning framework for automated skin condition classification and severity estimation using transfer learning. The system classifies multiple skin conditions, estimates their corresponding severity or condition levels, and provides Grad-CAM visualizations to improve model interpretability.
 
-The dataset covers 12 classes across medical and normal skin categories:
-- Acne_Mild, Acne_Moderate, Acne_Severe
-- Eczema_Mild, Eczema_Moderate, Eczema_Severe
-- Normal_dry, Normal_normal, Normal_oily
-- burn_Mild, burn_Moderate, burn_Severe
+The project includes:
+
+- Dataset preprocessing and metadata generation
+- Transfer learning using EfficientNetB0, MobileNetV2, and ResNet50
+- Model training and evaluation
+- Performance comparison of multiple architectures
+- Grad-CAM explainability
+- Prediction visualization and performance analysis
+
+---
+
+## Supported Classes
+
+The dataset contains **12 classes** representing four skin condition categories.
+
+| Skin Condition | Severity / Condition |
+|----------------|----------------------|
+| Acne | Mild, Moderate, Severe |
+| Eczema | Mild, Moderate, Severe |
+| Burn | Mild, Moderate, Severe |
+| Normal Skin | Dry, Normal, Oily |
+
+---
 
 ## Repository Structure
 
-- `code/`
-  - `data_preprocessing/` — notebook for loading raw images, creating labels, resizing images, and writing `train.csv`, `validation.csv`, and `test.csv`
-  - `model_efficientnetB0/` — training and explainability notebooks for EfficientNetB0
-  - `model_mobilenetv2/` — training and explainability notebooks for MobileNetV2
-  - `model_resnet50/` — training and explainability notebooks for ResNet50
-  - `comparision.ipynb` — notebook for model evaluation, comparison metrics, confusion matrices, ROC curves, and summary visualizations
-- `dataset/`
-  - `raw/` — source images organized by class
-  - `processed/` — generated CSV files and processed image assets
-  - `metadata/metadata.json` — dataset configuration and label mappings
-- `models/` — saved model checkpoints and training history files for each architecture
-- `results/` — evaluation outputs, comparison charts, explainability results, and predictions
-- `requirements.txt` — Python dependencies
+```
+code/
+│
+├── comparison.ipynb
+├── data_preprocessing/
+│   └── data_preprocessing.ipynb
+├── model_efficientnetB0/
+│   ├── training.ipynb
+│   └── prediction_explainability_evaluation.ipynb
+├── model_mobilenetv2/
+│   ├── training.ipynb
+│   └── prediction_explainability_evaluation.ipynb
+└── model_resnet50/
+    ├── training.ipynb
+    └── prediction_explainability_evaluation.ipynb
+
+dataset/
+├── metadata/
+│   └── metadata.json
+├── processed/
+│   ├── Images/
+│   ├── dataset.csv
+│   ├── train.csv
+│   ├── validation.csv
+│   └── test.csv
+└── raw/
+
+models/
+
+results/
+├── comparison/
+├── explainability/
+└── predictions/
+```
+
+---
 
 ## Dataset Information
 
-Metadata is defined in `dataset/metadata/metadata.json`:
-- image size: `224 x 224`
-- channels: `3`
-- total images: `8275`
-- train split: `70%`
-- validation split: `15%`
-- test split: `15%`
-- total labels: `12`
+Dataset configuration is stored in:
 
-## Setup
+```
+dataset/metadata/metadata.json
+```
 
-Recommended environment:
+| Property | Value |
+|----------|-------|
+| Image Size | 224 × 224 |
+| Channels | 3 |
+| Training Split | 70% |
+| Validation Split | 15% |
+| Test Split | 15% |
+| Total Images | 8275 |
+| Total Classes | 12 |
+
+---
+
+## Model Architectures
+
+The following transfer learning models are implemented:
+
+- EfficientNetB0
+- MobileNetV2
+- ResNet50
+
+Each model is trained using the same preprocessing pipeline and evaluated under identical experimental settings.
+
+---
+
+## Performance Summary
+
+| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC | Inference Time |
+|--------|---------:|----------:|--------:|---------:|--------:|---------------:|
+| ResNet50 | **74.32%** | **74.62%** | **74.32%** | **74.03%** | **97.48%** | 47.68 ms |
+| EfficientNetB0 | 72.95% | 73.01% | 72.95% | 72.56% | 97.07% | 22.79 ms |
+| MobileNetV2 | 71.26% | 71.62% | 71.26% | 71.19% | 97.02% | **17.12 ms** |
+
+---
+
+## Installation
+
+Recommended environment
+
 - Python 3.10
-- TensorFlow 2.21.0
+- TensorFlow 2.x
 
-Install dependencies:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If you use the included conda environment, activate it before running notebooks.
+---
 
 ## Usage
 
-1. Open and run `code/data_preprocessing/data_preprocessing.ipynb` to preprocess raw images and generate the dataset CSV files.
-2. Train models using one or more of the training notebooks:
-   - `code/model_efficientnetB0/training.ipynb`
-   - `code/model_mobilenetv2/training.ipynb`
-   - `code/model_resnet50/training.ipynb`
-3. Evaluate and compare the trained models with `code/comparision.ipynb`.
-4. Use explainability notebooks for additional analysis:
-   - `code/model_efficientnetB0/prediction_explainability_evaluation.ipynb`
-   - `code/model_mobilenetv2/prediction_explainability_evaluation.ipynb`
-   - `code/model_resnet50/prediction_explainability_evaluation.ipynb`
+### Step 1 — Dataset Preprocessing
 
-## Output Locations
+Run
 
-- `dataset/processed/` — processed datasets and image data
-- `models/efficientnetb0/`, `models/mobilenetv2/`, `models/resnet50/` — saved `.keras` models and training history
-- `results/comparison/metrics/` — classification reports and comparison CSVs
-- `results/comparison/confusion_matrices/` — confusion matrix images
-- `results/comparison/roc_curves/` — ROC comparison plot
-- `results/explainability/` — model explainability outputs
-- `results/predictions/` — prediction outputs
+```
+code/data_preprocessing/data_preprocessing.ipynb
+```
 
-## Notes
+This notebook
 
-- The project uses `tf.data` and Keras model saving in `.keras` format.
-- Model evaluation in `code/comparision.ipynb` computes accuracy, precision, recall, F1-score, ROC-AUC, and inference time.
-- The comparison notebook loads all saved model files found under `models/`.
+- Processes raw images
+- Generates metadata
+- Splits the dataset
+- Creates CSV files
+
+---
+
+### Step 2 — Train Models
+
+Choose any model
+
+- `code/model_efficientnetB0/training.ipynb`
+- `code/model_mobilenetv2/training.ipynb`
+- `code/model_resnet50/training.ipynb`
+
+---
+
+### Step 3 — Prediction, Explainability and Evaluation
+
+Run the corresponding notebook
+
+- Prediction
+- Grad-CAM visualization
+- Confusion Matrix
+- ROC Curve
+- Classification Report
+
+---
+
+### Step 4 — Compare Models
+
+Run
+
+```
+code/comparison.ipynb
+```
+
+This notebook compares
+
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- ROC-AUC
+- Inference Time
+
+for all trained models.
+
+---
+
+## Output
+
+Generated outputs include
+
+- Processed dataset
+- Trained `.keras` models
+- Prediction results
+- Confusion matrices
+- ROC curves
+- Grad-CAM heatmaps
+- Model comparison metrics
+
+---
+
+## Technologies Used
+
+- TensorFlow
+- Keras
+- OpenCV
+- NumPy
+- Pandas
+- Matplotlib
+- scikit-learn
+
+---
+
+## Future Work
+
+Future improvements include
+
+- Adding more skin conditions
+- Improving severity estimation
+- Deploying the framework as a mobile application
+- Real-time skin condition monitoring
+- Clinical validation using hospital datasets
+
+<!-- ---
+
+## Citation
+
+If you use this repository in your research, please cite:
+
+> *Aurnab Barua, "Explainable Transfer Learning-Based Skin Condition Classification and Severity Estimation Using Grad-CAM Visualization," MSc Thesis, BRAC University, 2026.* -->
+
+---
+
+## License
+
+This project is released for academic and research purposes.
