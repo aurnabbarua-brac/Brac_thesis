@@ -1,4 +1,4 @@
-# Explainable Deep Learning-Based Skin Condition Classification and Severity Estimation Using Transfer Learning and Grad-CAM Visualization Severity Estimation Using CNN and Grad-CAM Visualization
+# Explainable Deep Learning-Based Skin Condition Classification and Severity Estimation Using Transfer Learning and Grad-CAM Visualization
 
 ## Project Overview
 
