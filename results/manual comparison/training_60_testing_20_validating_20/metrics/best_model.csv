@@ -1,0 +1,2 @@
+Rank,Model,Accuracy,Precision,Recall,F1-Score,ROC-AUC,Inference Time (ms/image)
+1,resnet50,0.7221,0.7232,0.7221,0.7195,0.9685,55.77

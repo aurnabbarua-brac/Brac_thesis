@@ -2,9 +2,9 @@
     "image_height": 224,
     "image_width": 224,
     "channels": 3,
-    "train_size": 0.7,
-    "validation_size": 0.15,
-    "test_size": 0.15,
+    "train_size": 0.9,
+    "validation_size": 0.04999999999999999,
+    "test_size": 0.04999999999999999,
     "total_images": 8275,
     "total_labels": 12,
     "labels": [
