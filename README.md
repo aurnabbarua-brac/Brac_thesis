@@ -231,17 +231,6 @@ Generated outputs include:
 - Matplotlib
 - scikit-learn
 
----
-
-## Future Work
-
-Future improvements include:
-
-- Adding more skin conditions
-- Improving severity estimation
-- Deploying the framework as a mobile application
-- Real-time skin condition monitoring
-- Clinical validation using hospital datasets
 
 <!-- ---
 

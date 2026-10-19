@@ -93,5 +93,5 @@ outputs/predictions/
 *.zip
 *.rar
 *.7z
-.docx
-.pdf
+*.docx
+*.pdf
