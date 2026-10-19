@@ -1,4 +1,0 @@
-Rank,Model,Accuracy,Precision,Recall,F1-Score,ROC-AUC,Inference Time (ms/image)
-1,resnet50,0.7221,0.7232,0.7221,0.7195,0.9685,55.77
-2,efficientnetb0,0.6906,0.6915,0.6906,0.6884,0.9649,24.37
-3,mobilenetv2,0.6798,0.6803,0.6798,0.6772,0.9624,18.31

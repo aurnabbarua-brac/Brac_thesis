@@ -13,11 +13,13 @@ The project includes:
 - Grad-CAM explainability
 - Prediction visualization and performance analysis
 
+This is an academic research prototype, not a clinical diagnostic tool.
+
 ---
 
 ## Supported Classes
 
-The dataset contains **12 classes** representing four skin condition categories.
+The dataset contains **12 classes** across four condition categories.
 
 | Skin Condition | Severity / Condition |
 |----------------|----------------------|
@@ -26,6 +28,8 @@ The dataset contains **12 classes** representing four skin condition categories.
 | Burn | Mild, Moderate, Severe |
 | Normal Skin | Dry, Normal, Oily |
 
+The class labels are defined in `dataset/metadata/metadata.json`.
+
 ---
 
 ## Repository Structure
@@ -33,7 +37,7 @@ The dataset contains **12 classes** representing four skin condition categories.
 ```
 code/
 │
-├── comparison.ipynb
+├── comparision.ipynb
 ├── data_preprocessing/
 │   └── data_preprocessing.ipynb
 ├── model_efficientnetB0/
@@ -49,21 +53,35 @@ code/
 dataset/
 ├── metadata/
 │   └── metadata.json
+├── raw/
+│   ├── Acne/
+│   ├── burn/
+│   ├── Eczema/
+│   └── Normal/
 ├── processed/
 │   ├── Images/
 │   ├── dataset.csv
 │   ├── train.csv
 │   ├── validation.csv
 │   └── test.csv
-└── raw/
 
 models/
+├── efficientnetb0/
+├── mobilenetv2/
+└── resnet50/
 
 results/
 ├── comparison/
+│   ├── confusion_matrices/
+│   ├── metrics/
+│   └── roc_curves/
 ├── explainability/
+│   ├── gradcam/
+│   └── heatmaps/
 └── predictions/
 ```
+
+Each model directory contains trained models and training histories organized by dataset split.
 
 ---
 
@@ -79,11 +97,13 @@ dataset/metadata/metadata.json
 |----------|-------|
 | Image Size | 224 × 224 |
 | Channels | 3 |
-| Training Split | 70% |
-| Validation Split | 15% |
-| Test Split | 15% |
+| Training Split | 90% (7,447 images) |
+| Validation Split | 5% (414 images) |
+| Test Split | 5% (414 images) |
 | Total Images | 8275 |
 | Total Classes | 12 |
+
+The split CSV files are in `dataset/processed/`. The split percentages and image counts above describe the currently generated dataset; preprocessing settings can be changed in the preprocessing notebook.
 
 ---
 
@@ -101,24 +121,21 @@ Each model is trained using the same preprocessing pipeline and evaluated under 
 
 ## Performance Summary
 
-| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC | Inference Time |
-|--------|---------:|----------:|--------:|---------:|--------:|---------------:|
-| ResNet50 | **74.32%** | **74.62%** | **74.32%** | **74.03%** | **97.48%** | 47.68 ms |
-| EfficientNetB0 | 72.95% | 73.01% | 72.95% | 72.56% | 97.07% | 22.79 ms |
-| MobileNetV2 | 71.26% | 71.62% | 71.26% | 71.19% | 97.02% | **17.12 ms** |
+The following results are from the current 90% / 5% / 5% train / validation / test split and are recorded in `results/comparison/metrics/model_comparison.csv`.
+
+| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC | Inference Time (ms/image) |
+|--------|---------:|----------:|--------:|---------:|--------:|--------------------------:|
+| ResNet50 | **86.84%** | **87.22%** | **86.84%** | **86.79%** | **99.27%** | 62.86 |
+| EfficientNetB0 | 85.02% | 85.17% | 85.02% | 84.88% | 98.94% | 24.90 |
+| MobileNetV2 | 83.21% | 83.71% | 83.21% | 83.16% | 98.72% | **20.79** |
 
 ---
 
 ## Installation
 
-Recommended environment
+The project uses Python 3.10 and TensorFlow 2.21.0. Install the pinned dependencies from the repository root:
 
-- Python 3.10
-- TensorFlow 2.x
-
-Install dependencies
-
-```bash
+```powershell
 pip install -r requirements.txt
 ```
 
@@ -126,15 +143,17 @@ pip install -r requirements.txt
 
 ## Usage
 
+Open and run the notebooks from the repository root in Jupyter.
+
 ### Step 1 — Dataset Preprocessing
 
-Run
+Run:
 
 ```
 code/data_preprocessing/data_preprocessing.ipynb
 ```
 
-This notebook
+This notebook:
 
 - Processes raw images
 - Generates metadata
@@ -145,35 +164,37 @@ This notebook
 
 ### Step 2 — Train Models
 
-Choose any model
+Choose and run a model's training notebook:
 
 - `code/model_efficientnetB0/training.ipynb`
 - `code/model_mobilenetv2/training.ipynb`
 - `code/model_resnet50/training.ipynb`
 
+Trained models and training histories are saved under `models/`, organized by model and dataset split.
+
 ---
 
 ### Step 3 — Prediction, Explainability and Evaluation
 
-Run the corresponding notebook
+Run the corresponding `prediction_explainability_evaluation.ipynb` notebook in the model's folder for:
 
-- Prediction
-- Grad-CAM visualization
-- Confusion Matrix
-- ROC Curve
-- Classification Report
+- Predictions
+- Grad-CAM visualizations
+- Confusion matrices
+- ROC curves
+- Classification reports
 
 ---
 
 ### Step 4 — Compare Models
 
-Run
+Run:
 
 ```
-code/comparison.ipynb
+code/comparision.ipynb
 ```
 
-This notebook compares
+This notebook compares:
 
 - Accuracy
 - Precision
@@ -182,13 +203,13 @@ This notebook compares
 - ROC-AUC
 - Inference Time
 
-for all trained models.
+for the trained models and dataset splits.
 
 ---
 
 ## Output
 
-Generated outputs include
+Generated outputs include:
 
 - Processed dataset
 - Trained `.keras` models
@@ -196,7 +217,7 @@ Generated outputs include
 - Confusion matrices
 - ROC curves
 - Grad-CAM heatmaps
-- Model comparison metrics
+- Model comparison metrics in `results/comparison/metrics/`
 
 ---
 
@@ -214,7 +235,7 @@ Generated outputs include
 
 ## Future Work
 
-Future improvements include
+Future improvements include:
 
 - Adding more skin conditions
 - Improving severity estimation
