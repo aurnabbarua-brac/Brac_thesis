@@ -1,0 +1,54 @@
+{
+    "image_height": 224,
+    "image_width": 224,
+    "channels": 3,
+    "total_images": 9271,
+    "total_labels": 12,
+    "labels": [
+        "Acne_Mild",
+        "Acne_Moderate",
+        "Acne_Severe",
+        "Burn_Mild",
+        "Burn_Moderate",
+        "Burn_Severe",
+        "Eczema_Mild",
+        "Eczema_Moderate",
+        "Eczema_Severe",
+        "Normal_Dry",
+        "Normal_Normal",
+        "Normal_Oily"
+    ],
+    "label_to_index": {
+        "Acne_Mild": 0,
+        "Acne_Moderate": 1,
+        "Acne_Severe": 2,
+        "Burn_Mild": 3,
+        "Burn_Moderate": 4,
+        "Burn_Severe": 5,
+        "Eczema_Mild": 6,
+        "Eczema_Moderate": 7,
+        "Eczema_Severe": 8,
+        "Normal_Dry": 9,
+        "Normal_Normal": 10,
+        "Normal_Oily": 11
+    },
+    "index_to_label": {
+        "0": "Acne_Mild",
+        "1": "Acne_Moderate",
+        "2": "Acne_Severe",
+        "3": "Burn_Mild",
+        "4": "Burn_Moderate",
+        "5": "Burn_Severe",
+        "6": "Eczema_Mild",
+        "7": "Eczema_Moderate",
+        "8": "Eczema_Severe",
+        "9": "Normal_Dry",
+        "10": "Normal_Normal",
+        "11": "Normal_Oily"
+    },
+    "split_counts": {
+        "train": 7021,
+        "validation": 1187,
+        "test": 1063
+    }
+}
